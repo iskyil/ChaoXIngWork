@@ -12,19 +12,19 @@ currClass = 0
 class Work(object):
     def __init__(self):
         self.qkey = 'q-key'
-        self.username = '18888888888'  # 账号
-        self.password = '18888888888'  # 密码
+        self.username = '188888888'
+        self.password = '18888888'
         self.session = requests.session()
         self.headers = {
             'User-Agent':  "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; AcooBrowser; .NET CLR 1.1.4322; .NET CLR 2.0.50727)",
             'Referer': 'http://mooc1-1.chaoxing.com/'
         }
-        self.blacklist = ['2020级跨文化交际','2020级跨文化交际'] # 黑名单
+        self.blacklist = ['2020级跨文化交际','2021级跨文化交际','2022级跨文化交际']
 
-    def Qsend(qkey: str, msg: str):
+    def Qsend(self, msg: str):
         data = {
             'msg': msg,
-            'qkey': qkey,
+            'qkey': self.qkey,
             'type': 'text'
         }
         res = (requests.post('https://api.skyil.cn/send', data=data).text)
@@ -122,10 +122,9 @@ class Work(object):
                             "./div[@class='time notOver']/text()")[1]).replace('\n', '').replace('\r', '').replace(' ', '')
                         print(name+work+time)
                         hour = re.match(r'剩余(\d*)小时', time).group(1)
-                        for num in 48, 24, 12, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0:
+                        for num in 48, 24, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0:
                             if int(hour) == num:
-                                self.Qsend(self.qkey, name +
-                                           ' ' + work + ' ' + time)
+                                self.Qsend(name + ' ' + work + ' ' + time)
                                 break
 
 
@@ -143,4 +142,3 @@ if __name__ == '__main__':
                 run.check_work(course_dict[currClass][1])
     else:
         print('出错了')
-
